@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Hospital (Infrastructure,Staff,Patients,History,Reception,Accounting)>
+<!ELEMENT Infrastructure (Wings+)>
+<!ELEMENT Wings (Wing+)>
+<!ELEMENT Wing (Departments*,Wards*)>
+<!ELEMENT Departments (Department+)>
+<!ELEMENT Department (DepartmentName,DepartmentPhone)>
+<!ELEMENT DepartmentName (#PCDATA)>
+<!ELEMENT DepartmentPhone (#PCDATA)>
+<!ELEMENT Wards (Ward+)>
+<!ELEMENT Ward (Rooms)>
+<!ELEMENT Rooms (Room+)>
+<!ELEMENT Room (Beds+)>
+<!ELEMENT Beds (Bed+)>
+<!ELEMENT Bed EMPTY> 
+
+<!ELEMENT Staff (Doctors,Nurses)+>
+<!ELEMENT Doctors (Doctor+)>
+<!ELEMENT Doctor (DoctorName,Speciality,Relantionship,DoctorContact)>
+<!ELEMENT DoctorName (#PCDATA)>
+<!ELEMENT Speciality (#PCDATA)>
+<!ELEMENT Relantionship (#PCDATA)>
+<!ELEMENT DoctorContact (DoctorAddress,DoctorPhone+)>
+<!ELEMENT DoctorAddress (#PCDATA)>
+<!ELEMENT DoctorPhone (#PCDATA)>
+
+<!ELEMENT Nurses (Nurse+)>
+<!ELEMENT Nurse (NurseName,NurseContact)>
+<!ELEMENT NurseName (#PCDATA)>
+<!ELEMENT NurseContact (NurseAddress,NursePhone+)>
+<!ELEMENT NurseAddress (#PCDATA)>
+<!ELEMENT NursePhone (#PCDATA)>
+
+<!ELEMENT Patients (Patient+)>
+<!ELEMENT Patient (PatientName,Sex,Weight,Age,AttendedDept
+,AttendedDoctor,BedTo,RecoveryPeriod,PatientContact)>
+<!ELEMENT PatientName (#PCDATA)>
+<!ELEMENT Sex EMPTY>
+<!ELEMENT Weight EMPTY>
+<!ELEMENT Age EMPTY>
+<!ELEMENT AttendedDept EMPTY>
+<!ELEMENT AttendedDoctor EMPTY>
+<!ELEMENT BedTo EMPTY>
+<!ELEMENT RecoveryPeriod EMPTY>
+<!ELEMENT PatientContact (PatientAddress,PatientPhone+)>
+<!ELEMENT PatientAddress (#PCDATA)>
+<!ELEMENT PatientPhone (#PCDATA)>
+
+<!ELEMENT History (Record+)>
+<!ELEMENT Record (AffiliatedPatient,PatientState,HistoryUpdate+)>
+<!ELEMENT AffiliatedPatient EMPTY>
+<!ELEMENT PatientState EMPTY>
+<!ELEMENT HistoryUpdate (UpdateDate,UpdateTime,AffiliatedDoctor,AffiliatedDepart,MedicalCase,DoctorComments,Prescription)>
+
+<!ELEMENT UpdateDate EMPTY>
+<!ELEMENT UpdateTime EMPTY>
+<!ELEMENT AffiliatedDoctor EMPTY>
+<!ELEMENT AffiliatedDepart EMPTY>
+<!ELEMENT MedicalCase (#PCDATA)>
+<!ELEMENT DoctorComments (#PCDATA)>
+<!ELEMENT Prescription (Pill+)>
+<!ELEMENT Pill EMPTY>
+<!ELEMENT Reception (Appointment+)>
+<!ELEMENT Appointment (AppointedDoctor,AppointedPatient,AppointedDate,AppointedTime,comments)>
+<!ELEMENT AppointedDoctor EMPTY>
+<!ELEMENT AppointedPatient EMPTY>
+<!ELEMENT AppointedDate EMPTY>
+<!ELEMENT AppointedTime EMPTY>
+<!ELEMENT comments (#PCDATA)>
+
+<!ELEMENT Accounting (Expenditures,Incomes)>
+<!ELEMENT Expenditures (Salaries,MiscellaneousOrders)>
+<!ELEMENT Salaries (Salary+)>
+<!ELEMENT Salary (Payment)>
+<!ELEMENT Payment EMPTY>
+<!ELEMENT MiscellaneousOrders (Order+)>
+<!ELEMENT Order (Cost)>
+<!ELEMENT Cost EMPTY>
+<!ELEMENT Incomes (PatientBill+)>
+<!ELEMENT PatientBill (BillCost)>
+<!ELEMENT BillCost EMPTY>
+
+<!ATTLIST Wing wingID ID #REQUIRED>
+<!ATTLIST Department DeptartID ID #REQUIRED
+                                     useWard IDREF #IMPLIED>
+
+<!ATTLIST Ward WardID ID #REQUIRED>
+
+<!ATTLIST Room RoomID ID #REQUIRED
+                           RoomSize CDATA #REQUIRED>
+                           
+<!ATTLIST Bed BedSize (1 | 2) #REQUIRED
+                          BedID ID #REQUIRED>
+                          
+<!ATTLIST Doctor DoctorID ID #REQUIRED
+	WorksIn IDREF #REQUIRED
+	HeadOfDept IDREF #IMPLIED>
+                            
+<!ATTLIST Relantionship RelantionshipType (Trainee | Visiting | Permanent) #REQUIRED>
+
+<!ATTLIST Nurse NurseID ID #REQUIRED
+                            WorksIn IDREF #REQUIRED
+                            InspectWard IDREF #IMPLIED>
+
+<!ATTLIST Patient PatientID ID #REQUIRED
+                              PatientType (InPatient | OutPatient | VisitPatient) #REQUIRED>
+                              
+<!ATTLIST Sex GenderGategory (Male | Female) #REQUIRED>
+
+<!ATTLIST Weight PatientWeight CDATA #IMPLIED>
+
+<!ATTLIST Pill
+	PillName CDATA #REQUIRED
+	Instructions CDATA #REQUIRED>
+	
+	<!ATTLIST AppointedDoctor
+	AppointedDoctorID IDREF #REQUIRED>
+	
+	<!ATTLIST AppointedPatient
+	AppointedPatientID IDREF #REQUIRED>
+	
+	<!ATTLIST AppointedDate
+	Aptdate CDATA #REQUIRED>
+	
+<!ATTLIST AppointedDate
+	Aptdate CDATA #REQUIRED>
+
+<!ATTLIST AppointedTime
+	AptTime CDATA #IMPLIED>
+
+<!ATTLIST Age PatientAge CDATA #IMPLIED>
+
+<!ATTLIST AttendedDept AttendedIn IDREF #IMPLIED>
+
+<!ATTLIST AttendedDoctor AttendedBy IDREFS #REQUIRED>
+
+<!ATTLIST BedTo assignedBed IDREF #IMPLIED>
+
+<!ATTLIST RecoveryPeriod dateAdmitted CDATA #IMPLIED
+                  dateDischarged CDATA #IMPLIED>
+
+<!ATTLIST Record HistoryRecID ID #REQUIRED>
+
+<!ATTLIST AffiliatedPatient AffiliatedPatientID IDREF #REQUIRED>
+
+<!ATTLIST PatientState
+	Pstate (Good | Sick | Severe | Diseased) #REQUIRED>
+
+<!ATTLIST HistoryUpdate HistoryUpdateID ID #REQUIRED>
+
+<!ATTLIST UpdateDate
+	UptDate CDATA #REQUIRED>
+                 
+                  
+<!ATTLIST UpdateTime
+	UptTime CDATA #REQUIRED>
+
+<!ATTLIST AffiliatedDoctor AffiliatedDoctorID IDREF #REQUIRED>
+
+<!ATTLIST AffiliatedDepart AffiliatedDepartID IDREF #REQUIRED>
+
+<!ATTLIST Appointment AppointmentID ID #REQUIRED>
+
+<!ATTLIST Salary
+	SalaryID ID #REQUIRED
+	staffID IDREF #REQUIRED>
+                              
+<!ATTLIST Payment amount CDATA #REQUIRED>
+
+<!ATTLIST Order OrderID ID #REQUIRED
+                   ForDepartment IDREFS #REQUIRED
+                   OrderDate CDATA #REQUIRED>
+                   
+<!ATTLIST Cost TotalCost CDATA #REQUIRED>
+
+<!ATTLIST PatientBill BillID ID #REQUIRED 
+                  BilledPatient IDREF #REQUIRED>
+                  
+<!ATTLIST BillCost amount CDATA #REQUIRED>
