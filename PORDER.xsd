@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="purchaseOrder" type="Order"/>
+		<xs:element name="comment" type="xs:string"/>
+		
+	<xs:complexType name="Order">
+		<xs:sequence>
+			<xs:element name="shipTo" type="OrderAddress"/>
+			<xs:element name="billTo" type="OrderAddress"/>
+			<xs:element ref="comment" minOccurs="0"/>
+			<xs:element name="items" type="Items"/>
+		</xs:sequence>
+		<xs:attribute name="orderDate" type="xs:date"/>
+    </xs:complexType>
+
+    <xs:complexType name="OrderAddress">
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+        <xs:element name="street" type="xs:string"/>
+        <xs:element name="city" type="xs:string"/>
+        <xs:element name="state" type="xs:string"/>
+        <xs:element name="zip" type="xs:decimal"/>
+      </xs:sequence>
+      <xs:attribute name="country" type="xs:NMTOKEN" default="US"/>
+    </xs:complexType>
+    
+    <xs:simpleType name="Quant">
+       <xs:restriction base="xs:positiveInteger">
+			<xs:maxExclusive value="200"/>
+		</xs:restriction>
+	</xs:simpleType>    
+	
+	  <xs:element name="productName" type="xs:string"/>
+	  <xs:element name="quantity" type="Quant"/>
+	  <xs:element name="USPrice" type="xs:decimal"/>
+	  <xs:element name="shipDate" type="xs:date" />
+	  <xs:attribute name="partNum" type="PNUMBER"/>
+	  
+	  
+	<xs:group name="itemelements">
+		<xs:sequence>
+			<xs:element ref="productName"/>
+			<xs:element ref="quantity"/>
+			<xs:element ref="USPrice"/>
+			<xs:element ref="comment" minOccurs="0"/>
+			<xs:element ref="shipDate" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+		
+	<xs:element name="item">
+		<xs:complexType>
+			<xs:group ref="itemelements"/>
+			<xs:attribute ref="partNum" use="required"/>
+		</xs:complexType>
+	</xs:element>
+		
+							
+    <xs:complexType name="Items">
+			<xs:sequence>
+				<xs:element ref="item" maxOccurs="2"/>
+			</xs:sequence>
+	</xs:complexType>
+
+						
+	<xs:simpleType name="PNUMBER">
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{3}-[A-Z]{2}"/>
+			</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
