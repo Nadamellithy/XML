@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by www.serials.ws (www.serials.ws) -->
+<!DOCTYPE Family SYSTEM "C:\Users\Microsoft\Documents\Altova Projects\familydtd.dtd">
+<Family>
+	<grandFather>
+		<Father job="Doctor">
+			<Mother/>
+			<Daughter age="12" job="Doctor"/>
+			<Son age="4" sport="tennis"/>
+		</Father>
+		<uncle/>
+		<uncle/>
+		<Aunt sons="4"/>
+	</grandFather>
+</Family>
